@@ -86,7 +86,7 @@ title_label = tk.Label(app, text="Kalkulator Arah Kiblat", font=font_title, bg="
 title_label.pack(pady=15)
 
 # User Instructions
-instruction_label = tk.Label(app, text="Sila masukkan koordinat lokasi kawasan:", font=font_normal, bg="#F0F0F0")
+instruction_label = tk.Label(app, text="Sila masukkan koordinat lokasi kawasan (Nilai (+) merujuk Utara dan Timur \ndan nilai (-) merujuk Selatan dan Barat):", font=font_normal, bg="#F0F0F0")
 instruction_label.pack(pady=5)
 
 # Latitude Input
