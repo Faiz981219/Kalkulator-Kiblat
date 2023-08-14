@@ -1,4 +1,4 @@
-import tkinter as tk
+import customtkinter as CKr
 import math
 from geopy.geocoders import Nominatim
 
@@ -15,7 +15,10 @@ def azimuth():
 
     rad_LatT = math.radians(LatT)
 
-    C_Sudut=abs(LonT-LonK)
+    if LonK<-140.1736278:
+        C_Sudut=360-abs(LonT)-LonK
+    else:
+        C_Sudut=abs(LonT-LonK)
 
     rad_c= math.radians(C_Sudut)
 
@@ -24,6 +27,7 @@ def azimuth():
     sudut_kiblat = math.degrees(rad_sudut_kiblat)
 
     sudut_kiblat==sudut_kiblat
+
     try_arah=0
 
     if LatT == LatK and LonT < LonK:
@@ -71,59 +75,49 @@ def azimuth():
     result_label.configure(text=arah+" "+ustb)
     lokasi_label.configure(text="Lokasi kawasan: "+str(location.address))
 
-# Create the main application window
-app = tk.Tk()
+CKr.set_appearance_mode("dark")  # Modes: system (default), light, dark
+CKr.set_default_color_theme("blue")  # Themes: blue (default), dark-blue, green
+app=CKr.CTk()
 app.geometry("720x480")
 app.title("Kalkulator Arah Kiblat")
-app.configure(bg="#F0F0F0")  # Set background color
 
-# Styling for labels, buttons, and entry fields
-font_title = ("Helvetica", 18, "bold")
-font_normal = ("Helvetica", 12)
 
-# Title Label
-title_label = tk.Label(app, text="Kalkulator Arah Kiblat", font=font_title, bg="#F0F0F0")
-title_label.pack(pady=15)
+title_label = CKr.CTkLabel(app, text="Kalkulator Arah Kiblat", font=CKr.CTkFont(size=20, weight="bold"))
+title_label.pack(pady=10)
 
-# User Instructions
-instruction_label = tk.Label(app, text="Sila masukkan koordinat lokasi kawasan (Nilai (+) merujuk Utara dan Timur \ndan nilai (-) merujuk Selatan dan Barat):", font=font_normal, bg="#F0F0F0")
+instruction_label = CKr.CTkLabel(app, text="Sila masukkan koordinat lokasi kawasan (Nilai (+) merujuk Utara dan Timur \ndan nilai (-) merujuk Selatan dan Barat):")
 instruction_label.pack(pady=5)
 
-# Latitude Input
-latitude_frame = tk.Frame(app, bg="#F0F0F0")
+latitude_frame = CKr.CTkFrame(app)
 latitude_frame.pack(pady=5)
 
-latitude_label = tk.Label(latitude_frame, text="Latitud:", font=font_normal, bg="#F0F0F0")
+latitude_label = CKr.CTkLabel(latitude_frame, text="Latitud:",)
 latitude_label.pack(side="left")
 
-latitude_var = tk.DoubleVar()  # Variable to store latitude
-latitude_entry = tk.Entry(latitude_frame, textvariable=latitude_var, font=font_normal)
+latitude_var = CKr.DoubleVar()
+latitude_entry = CKr.CTkEntry(latitude_frame, textvariable=latitude_var)
 latitude_entry.pack(side="left")
 
-# Longitude Input
-longitude_frame = tk.Frame(app, bg="#F0F0F0")
+longitude_frame = CKr.CTkFrame(app)
 longitude_frame.pack(pady=7)
 
-longitude_label = tk.Label(longitude_frame, text="Longitud:", font=font_normal, bg="#F0F0F0")
+longitude_label = CKr.CTkLabel(longitude_frame, text="Longitud:")
 longitude_label.pack(side="left")
 
-longitude_var = tk.DoubleVar()  # Variable to store longitude
-longitude_entry = tk.Entry(longitude_frame, textvariable=longitude_var, font=font_normal)
+longitude_var = CKr.DoubleVar()  # Variable to store longitude
+longitude_entry = CKr.CTkEntry(longitude_frame, textvariable=longitude_var)
 longitude_entry.pack(side="left")
 
-lokasi_label = tk.Label(app, text="Lokasi kawasan: ", font=font_normal, bg="#F0F0F0")
-lokasi_label.pack(pady=5)
+lokasi_label = CKr.CTkLabel(app, text="Lokasi kawasan: ")
+lokasi_label.pack(padx=5,pady=5)
 
-# Calculate Button
-calculate_button = tk.Button(app, text="Kira", font=font_normal, command=azimuth, bg="#4CAF50", fg="white", activebackground="#45A049")
+calculate_button = CKr.CTkButton(app, text="Kira", command=azimuth)
 calculate_button.pack(pady=10)
 
-# Azimuth Result Display
-direction_result_label = tk.Label(app, text="Azimut kiblat:", font=font_normal, bg="#F0F0F0")
+direction_result_label = CKr.CTkLabel(app, text="Azimut kiblat:")
 direction_result_label.pack(pady=5)
 
-result_label = tk.Label(app, text="", font=("Helvetica", 16, "bold"), bg="#F0F0F0")
+result_label = CKr.CTkLabel(app, text="")
 result_label.pack()
 
-# Start the GUI event loop
 app.mainloop()
