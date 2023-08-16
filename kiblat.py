@@ -52,8 +52,8 @@ class QiblaDirectionCalculatorApp:
         self.app.mainloop()
 
     def calculate_azimuth(self):
-        LatK = 21.42222222
-        LonK = 39.825
+        LatK = 21.422503
+        LonK = 39.826198
 
         rad_LatK = math.radians(LatK)
 
@@ -62,7 +62,9 @@ class QiblaDirectionCalculatorApp:
 
         rad_LatT = math.radians(LatT)
 
-        if LonK < -140.1736278:
+        try_bezaLon=LonT-LonK
+
+        if try_bezaLon < -180:
             C_Sudut = 360 - abs(LonT) - LonK
         else:
             C_Sudut = abs(LonT - LonK)
@@ -102,15 +104,15 @@ class QiblaDirectionCalculatorApp:
         elif try_arah == 180:
             ustb = "S"
         elif try_arah == 270:
-            ustb = "W"
+            ustb = "B"
         elif try_arah < 90:
-            ustb = "TU"
+            ustb = "UT"
         elif try_arah < 180:
-            ustb = "TS"
+            ustb = "ST"
         elif try_arah < 270:
-            ustb = "BS"
+            ustb = "SB"
         elif try_arah < 360:
-            ustb = "BU"
+            ustb = "UB"
         else:
             ustb = "U"
 
